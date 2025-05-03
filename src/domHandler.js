@@ -81,6 +81,37 @@ function sidebarLoader() {
 
 function defaultProjectLoader(defaultProjectName) {
   const main = document.querySelector("#main");
+  main.replaceChildren('');
+
+  if(defaultProjectName === 'important') {
+    displayProjectCard('Important');
+  }
+  else if(defaultProjectName === 'completed') {
+    displayProjectCard('Completed');
+  }
+  else if(defaultProjectName === 'pending') {
+    displayProjectCard('Pending');
+  }
+}
+
+function displayProjectCard(pTitle) {
+  const mainContainer = document.querySelector("#main");
+  const project = document.createElement('div');
+  project.classList.add('project');
+  mainContainer.appendChild(project);
+
+  const projectTitle = document.createElement('div');
+  projectTitle.classList.add("projectTitle")
+  project.appendChild(projectTitle);
+
+  const title = document.createElement('p');
+  title.textContent = pTitle;
+  projectTitle.appendChild(title);
+
+  const closeBtn = document.createElement('button');
+  closeBtn.textContent = 'Close';
+  closeBtn.classList.add('closeProjectBtn');
+  projectTitle.appendChild(closeBtn);
 }
 
 export const pageLoader = {
