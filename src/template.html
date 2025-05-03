@@ -6,6 +6,43 @@
   <title>Todo List</title>
 </head>
 <body>
-  
+    <header id="header">
+ 
+    </header>
+    <div id="sidebar">
+
+    </div>
+    <main id="main">
+      <div class="project">
+        <div class="projectTitle">
+          <p>Project</p>
+          <button class="closeProjectBtn">Close</button>
+        </div>
+      </div>
+    </main>
+    <dialog id="dialog">
+      <form class="userForm">
+        <div class="username_form">
+          <label for="username_input">Enter your Name</label>
+          <input type="text" name="username_input" id="username_input" required autocomplete="off">
+        </div>
+        <div class="gender_form">
+          <label>Gender</label>
+          <div class="genderContainer"> 
+            <div class="maleGender">
+              <input type="radio" name="gender_type" id="male_gender" value="male" required>
+              <label for="male_gender">Male</label> 
+            </div>
+            <div class="femaleGender">
+              <input type="radio" name="gender_type" id="female_gender" value="female">
+              <label for="female_gender">Female</label>
+            </div>
+          </div>
+        </div>
+        <div class="username_button">
+          <button class="confirm_button">Confirm</button>
+        </div>
+      </form>
+    </dialog>
 </body>
 </html>
