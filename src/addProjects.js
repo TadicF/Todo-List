@@ -1,0 +1,36 @@
+// Default Project Constructor
+export const defaultProjects = {
+  projects: [],
+}
+
+class DefaultProject {
+  constructor(name) {
+    this.name = name;
+  };
+}
+
+function addDefaultProject(name) {
+  const project = new DefaultProject(name);
+  defaultProjects.projects.push(project);
+}
+
+addDefaultProject('important');
+addDefaultProject('completed');
+addDefaultProject('pending');
+
+// User Project Constructor
+
+const userProjects = {
+  projects: [],
+}
+
+class UserProject {
+  constructor(name) {
+    this.name = name;
+  }
+}
+
+function addUserProject(name) {
+  const project = new UserProject(name);
+  userProjects.projects.push(project);
+}

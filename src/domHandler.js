@@ -1,6 +1,11 @@
 import './styles.css'
 import { createUser } from './createUser.js';
 
+// Check if Form is already opened
+const isFormOpened = {
+  projectForm: false,
+}
+
 // Load Page Header
 function headerLoader() {
   const header = document.querySelector("#header");
@@ -77,6 +82,12 @@ function sidebarLoader() {
   addProjectBtn.classList.add('addProject');
   addProjectBtn.textContent = 'Add Project'
   todoProjects.appendChild(addProjectBtn);
+  addProjectBtn.addEventListener('click', () => {
+      if(!isFormOpened.projectForm) {
+        displayProjectForm();
+        isFormOpened.projectForm = true;
+      }
+  }); 
 }
 
 function defaultProjectLoader(defaultProjectName) {
@@ -112,6 +123,59 @@ function displayProjectCard(pTitle) {
   closeBtn.textContent = 'Close';
   closeBtn.classList.add('closeProjectBtn');
   projectTitle.appendChild(closeBtn);
+
+  closeBtn.addEventListener('click', () => { 
+    mainContainer.replaceChildren('');
+    // ***** Add function to load Default Main page (informations) *********
+  })
+}
+
+function displayProjectForm() {
+  const todoProjects = document.querySelector('.todoProjects');
+  const projectForm = document.createElement('form');
+  projectForm.classList.add('projectForm');
+  todoProjects.appendChild(projectForm);
+
+  const formDiv = document.createElement('div');
+  formDiv.classList.add("formDiv");
+  projectForm.appendChild(formDiv);
+
+  const formLabel = document.createElement('label');
+  formLabel.textContent = 'Project Name';
+  formDiv.appendChild(formLabel);
+
+  const formInput = document.createElement('input');
+  formInput.setAttribute('type', 'text');
+  formInput.setAttribute('name', 'projectName');
+  formInput.setAttribute('id', 'projectName');
+  formDiv.appendChild(formInput);
+
+  const buttonDiv = document.createElement('div');
+  buttonDiv.classList.add('formButtons');
+  projectForm.appendChild(buttonDiv);
+
+  const acceptButton = document.createElement('button');
+  acceptButton.classList.add('acceptProjectBtn');
+  acceptButton.textContent = 'Accept';
+  buttonDiv.appendChild(acceptButton);
+  acceptButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    projectForm.replaceChildren('');
+    projectForm.remove();
+    isFormOpened.projectForm = false;
+    // create a function in addProject module and export it here
+  })
+
+  const cancelButton = document.createElement('button');
+  cancelButton.classList.add('cancelProjectBtn');
+  cancelButton.textContent = 'Cancel';
+  buttonDiv.appendChild(cancelButton);
+  cancelButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    projectForm.replaceChildren('');
+    projectForm.remove();
+    isFormOpened.projectForm = false;
+  })
 }
 
 export const pageLoader = {

@@ -332,6 +332,62 @@ input[type="text"]:focus {
   scale: 1.1;
 }
 
+/* Add Project Form */
+
+.projectForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 10px;
+}
+
+.formDiv {
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.formDiv input {
+  width: 90%;
+}
+
+.formButtons {
+  display: flex;
+  gap: 10px;
+}
+
+.formButtons button {
+  padding: 8px 18px;
+  border: none;
+  border-radius: 5px;
+  font-family: "Sansation Regular";
+  font-size: 16px;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.acceptProjectBtn {
+  background-color: rgb(100, 255, 100);
+}
+
+.cancelProjectBtn {
+  background-color: rgb(255, 59, 59);
+}
+
+.acceptProjectBtn:hover {
+  scale: 1.05;
+  background-color: rgb(81, 233, 81);
+}
+
+.cancelProjectBtn:hover {
+  scale: 1.05;
+  background-color: rgb(240, 45, 45);
+}
+
 /* Fonts */
 @font-face {
   font-family: 'Sansation Regular';
