@@ -1,5 +1,6 @@
 import './styles.css'
 import { createUser } from './createUser.js';
+import { addUserProject } from './addProjects.js';
 
 // Check if Form is already opened
 const isFormOpened = {
@@ -95,17 +96,17 @@ function defaultProjectLoader(defaultProjectName) {
   main.replaceChildren('');
 
   if(defaultProjectName === 'important') {
-    displayProjectCard('Important');
+    loadDefaultProject('Important');
   }
   else if(defaultProjectName === 'completed') {
-    displayProjectCard('Completed');
+    loadDefaultProject('Completed');
   }
   else if(defaultProjectName === 'pending') {
-    displayProjectCard('Pending');
+    loadDefaultProject('Pending');
   }
 }
 
-function displayProjectCard(pTitle) {
+function loadDefaultProject(pTitle) {
   const mainContainer = document.querySelector("#main");
   const project = document.createElement('div');
   project.classList.add('project');
@@ -142,6 +143,7 @@ function displayProjectForm() {
 
   const formLabel = document.createElement('label');
   formLabel.textContent = 'Project Name';
+  formLabel.setAttribute('for', 'projectName')
   formDiv.appendChild(formLabel);
 
   const formInput = document.createElement('input');
@@ -160,10 +162,15 @@ function displayProjectForm() {
   buttonDiv.appendChild(acceptButton);
   acceptButton.addEventListener('click', (event) => {
     event.preventDefault();
+    isFormOpened.projectForm = false;
+
+    const projectName = formInput.value;
+    addUserProject(projectName);
+
     projectForm.replaceChildren('');
     projectForm.remove();
-    isFormOpened.projectForm = false;
-    // create a function in addProject module and export it here
+
+    displayUserProject(projectName);
   })
 
   const cancelButton = document.createElement('button');
@@ -176,6 +183,18 @@ function displayProjectForm() {
     projectForm.remove();
     isFormOpened.projectForm = false;
   })
+}
+
+function displayUserProject(projectName) {
+  const todoProjects = document.querySelector('.todoProjects');
+  const addProjectBtn = document.querySelector('.addProject');
+  const project = document.createElement('nav');
+  todoProjects.appendChild(project);
+  project.innerHTML += `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14,10H19.5L14,4.5V10M5,3H15L21,9V19A2,2 0 0,1 19,21H5C3.89,21 3,20.1 3,19V5C3,3.89 3.89,3 5,3M5,5V19H19V12H12V5H5Z" /></svg>`;
+  const pTitle = document.createElement('p');
+  pTitle.textContent = projectName;
+  project.appendChild(pTitle);
+  addProjectBtn.before(project);
 }
 
 export const pageLoader = {

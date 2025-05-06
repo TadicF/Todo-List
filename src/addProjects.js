@@ -30,7 +30,9 @@ class UserProject {
   }
 }
 
-function addUserProject(name) {
+export function addUserProject(name) {
   const project = new UserProject(name);
   userProjects.projects.push(project);
+  console.log(userProjects.projects);
 }
+
