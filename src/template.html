@@ -13,16 +13,9 @@
 
     </div>
     <main id="main">
-      <!--
-      <div class="project">
-        <div class="projectTitle">
-          <p>Project</p>
-          <button class="closeProjectBtn">Close</button>
-        </div>
-      </div>
-      -->
+    
     </main>
-    <dialog id="dialog">
+    <dialog id="userDialog">
       <form class="userForm">
         <div class="username_form">
           <label for="username_input">Enter your Name</label>
@@ -44,6 +37,40 @@
         <div class="username_button">
           <button class="confirm_button">Confirm</button>
         </div>
+      </form>
+    </dialog>
+
+    <dialog id="taskDialog">
+      <form class="taskForm">
+        <div class="title_form">
+          <label for="taskTitle">Task Title</label>
+          <input type="text" name="task_title" id="task_title">
+        </div>
+        <div class="desc_form">
+          <label for="task_desc">Description</label>
+          <textarea name="task_desc" id="task_desc" cols="30" rows="5" placeholder="Your Task Description"></textarea>
+        </div>
+        <div class="date_form">
+          <label for="due_date">Due Date</label>
+          <input type="date" name="due_date" id="due_date">
+        </div>
+        <div class="priority_form">
+          <label for="">Priority</label>
+          <div class="radioWrapper">
+            <div>
+              <input type="radio" name="task_priority" id="low_priority">
+              <label for="lowPriority" class="lowPriority">Low</label>
+            </div>
+            <div>
+              <input type="radio" name="task_priority" id="medium_priority">
+              <label for="medium_priority" class="mediumPriority">Medium</label>
+            </div>
+            <div>
+              <input type="radio" name="task_priority" id="high_priority">
+              <label for="high_priority" class="highPriority">High</label>
+            </div>
+          </div>
+      </div>
       </form>
     </dialog>
 </body>

@@ -1,5 +1,6 @@
 import './styles.css'
 import { createUser } from './createUser.js';
+import { addDefaultProject } from './addProjects.js';
 import { addUserProject } from './addProjects.js';
 
 // Check if Form is already opened
@@ -129,6 +130,8 @@ function loadDefaultProject(pTitle) {
     mainContainer.replaceChildren('');
     // ***** Add function to load Default Main page (informations) *********
   })
+
+  addDefaultProject(title);
 }
 
 function displayProjectForm() {
@@ -195,6 +198,53 @@ function displayUserProject(projectName) {
   pTitle.textContent = projectName;
   project.appendChild(pTitle);
   addProjectBtn.before(project);
+
+  project.addEventListener('click', () => {
+    loadUserProject(projectName);
+  })
+}
+
+function loadUserProject(projectName) {
+  const main = document.querySelector("#main");
+  main.replaceChildren('');
+  const project = document.createElement('div');
+  project.classList.add('project');
+  main.appendChild(project);
+
+  const projectTitle = document.createElement('div');
+  projectTitle.classList.add('projectTitle');
+  project.appendChild(projectTitle);
+
+  const title = document.createElement('p');
+  title.textContent = projectName;
+  projectTitle.appendChild(title);
+
+  const btnContainer = document.createElement('div');
+  btnContainer.classList.add('btnContainer');
+  projectTitle.appendChild(btnContainer);
+
+  const addTaskBtn = document.createElement('button');
+  addTaskBtn.classList.add('addTaskBtn');
+  addTaskBtn.textContent = 'Add Task';
+  btnContainer.appendChild(addTaskBtn);
+  addTaskBtn.addEventListener('click', () => {
+    // function to show modal
+    const taskInfo = loadTaskModal(); // it should return array of info
+  })
+
+  const closeBtn = document.createElement('button');
+  closeBtn.classList.add('closeProjectBtn');
+  closeBtn.textContent = 'Close';
+  btnContainer.appendChild(closeBtn);
+  closeBtn.addEventListener('click', () => {
+    if(main.firstElementChild)
+    main.replaceChildren('');
+  });
+}
+
+function loadTaskModal() {
+  const taskDialog = document.querySelector('#taskDialog');
+  taskDialog.showModal();
 }
 
 export const pageLoader = {

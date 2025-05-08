@@ -188,15 +188,15 @@ body {
 }
 
 /* Username Form Styling */
-#dialog {
-  border: 1px solid rgb(160, 160, 160);
+#userDialog {
+  border: 1px solid rgb(78, 78, 78);
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.541);
   background-color: rgb(232, 252, 255);
   padding: 10px 30px;
 }
 
-#dialog::backdrop {
+dialog::backdrop {
   background-color: rgb(49, 49, 49);
   opacity: 0.4;
 }
@@ -213,7 +213,7 @@ label, input {
   font-size: 18px;
 }
 
-input[type="text"] {
+.userForm input[type="text"] {
   border: 1px solid rgb(192, 192, 192);
   padding: 2px 5px;
   transition: all 0.15s;
@@ -298,21 +298,27 @@ input[type="text"]:focus {
   flex-direction: column;
 }
 
-.project div {
-  padding: 20px 30px;
+.project > div {
+  padding: 10px 30px;
 }
 
 .projectTitle {
   display: flex;
-  justify-content: space-between;
   border-bottom: 1px solid rgb(150, 150, 150);
   background-color: rgb(201, 226, 223);
   border-radius: 25px;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .projectTitle p {
   font-family: "Sansation Bold";
   font-size: 38px;
+}
+
+.btnContainer {
+  display: flex;
+  gap: 35px;
 }
 
 .closeProjectBtn {
@@ -330,6 +336,23 @@ input[type="text"]:focus {
 .closeProjectBtn:hover {
   background-color: rgb(255, 0, 0);
   scale: 1.1;
+}
+
+.addTaskBtn {
+  background-color: rgb(58, 202, 58);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-family: "Sansation Bold";
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.addTaskBtn:hover {
+  scale: 1.1;
+  background-color: rgb(59, 221, 59);
 }
 
 /* Add Project Form */
@@ -386,6 +409,64 @@ input[type="text"]:focus {
 .cancelProjectBtn:hover {
   scale: 1.05;
   background-color: rgb(240, 45, 45);
+}
+
+/* Task Form */
+#taskDialog {
+  border: 1px solid rgb(78, 78, 78);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.541);
+  background-color: rgb(232, 252, 255);
+  padding: 30px 50px;
+}
+
+#taskDialog::backdrop {
+  background-color: rgb(235, 235, 235);
+}
+
+.taskForm {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.taskForm > div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.199);
+  padding: 10px 0px;
+}
+
+.radioWrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+textarea {
+  border: none;
+  border-radius: 5px;
+  border: 1px solid rgb(192, 192, 192);
+  transition: all 0.15s ease;
+  font-family: "Sansation Regular";
+  font-size: 16px;
+}
+
+textarea:focus {
+  border: 1px solid black;
+  outline: none;
+  scale: 1.05;
+  box-shadow: inset 0px 0px 5px rgb(202, 202, 202);
+}
+
+.title_form > input {
+  border: 1px solid rgb(192, 192, 192);
+  padding: 2px 5px;
+  transition: all 0.15s;
+  border-radius: 4px;
+  transition: all 0.15s;
+  width: 80%;
 }
 
 /* Fonts */

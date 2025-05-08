@@ -1,9 +1,10 @@
-// Next: create sign up button, rewrite the whole code
+// Rewrite this module because it should only create User Object
+// instead of appending it to the DOM
 import malePfp from './pfp/malepfp.jpg';
 import femalePfp from './pfp/femalepfp.jpg';
 
 function createUser() {
-  const modalForm = document.querySelector("#dialog");
+  const modalForm = document.querySelector("#userDialog");
   modalForm.showModal();
   let userName = '';
   let userGender = '';

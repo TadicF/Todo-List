@@ -9,7 +9,7 @@ class DefaultProject {
   };
 }
 
-function addDefaultProject(name) {
+export function addDefaultProject(name) {
   const project = new DefaultProject(name);
   defaultProjects.projects.push(project);
 }
