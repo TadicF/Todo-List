@@ -44,7 +44,7 @@
       <form class="taskForm">
         <div class="title_form">
           <label for="taskTitle">Task Title</label>
-          <input type="text" name="task_title" id="task_title">
+          <input type="text" name="task_title" id="task_title" required>
         </div>
         <div class="desc_form">
           <label for="task_desc">Description</label>
@@ -57,20 +57,24 @@
         <div class="priority_form">
           <label for="">Priority</label>
           <div class="radioWrapper">
-            <div>
-              <input type="radio" name="task_priority" id="low_priority">
-              <label for="lowPriority" class="lowPriority">Low</label>
+            <div class="lowPriority">
+              <input type="radio" name="task_priority" id="low_priority" value="low" checked>
+              <label for="lowPriority">Low</label>
             </div>
-            <div>
-              <input type="radio" name="task_priority" id="medium_priority">
-              <label for="medium_priority" class="mediumPriority">Medium</label>
+            <div class="mediumPriority">
+              <input type="radio" name="task_priority" id="medium_priority" value="medium">
+              <label for="medium_priority">Medium</label>
             </div>
-            <div>
-              <input type="radio" name="task_priority" id="high_priority">
-              <label for="high_priority" class="highPriority">High</label>
+            <div class="highPriority">
+              <input type="radio" name="task_priority" id="high_priority" value="high">
+              <label for="high_priority">High</label>
             </div>
           </div>
-      </div>
+        </div>
+        <div class="taskButtons">
+          <button class="acceptTaskBtn">Accept</button>
+          <button class="cancelTaskBtn">Cancel</button>
+        </div>
       </form>
     </dialog>
 </body>

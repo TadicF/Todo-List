@@ -375,7 +375,12 @@ input[type="text"]:focus {
 }
 
 .formDiv input {
-  width: 90%;
+  width: 80%;
+  border: 1px solid rgb(192, 192, 192);
+  padding: 2px 5px;
+  transition: all 0.15s;
+  border-radius: 4px;
+  transition: all 0.15s;
 }
 
 .formButtons {
@@ -421,7 +426,7 @@ input[type="text"]:focus {
 }
 
 #taskDialog::backdrop {
-  background-color: rgb(235, 235, 235);
+  background-color: rgb(187, 187, 187);
 }
 
 .taskForm {
@@ -430,7 +435,7 @@ input[type="text"]:focus {
   gap: 15px;
 }
 
-.taskForm > div {
+.title_form, .desc_form, .date_form, .priority_form {
   display: flex;
   flex-direction: column;
   gap: 3px;
@@ -442,6 +447,7 @@ input[type="text"]:focus {
 .radioWrapper {
   display: flex;
   flex-direction: row;
+  gap: 12px;
 }
 
 textarea {
@@ -451,6 +457,7 @@ textarea {
   transition: all 0.15s ease;
   font-family: "Sansation Regular";
   font-size: 16px;
+  resize: none;
 }
 
 textarea:focus {
@@ -467,6 +474,68 @@ textarea:focus {
   border-radius: 4px;
   transition: all 0.15s;
   width: 80%;
+}
+
+input[type="date"] {
+  border: 1px solid rgb(192, 192, 192);
+  padding: 4px 6px;
+  border-radius: 5px;
+  width: 80%;
+  transition: all 0.25s ease;
+}
+
+input[type="date"]:focus {
+  scale: 1.1;
+}
+
+.lowPriority, .mediumPriority, .highPriority {
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.lowPriority {
+  background-color: rgb(111, 255, 111);
+}
+
+.mediumPriority {
+  background-color: rgb(255, 255, 132);
+}
+
+.highPriority {
+  background-color: rgb(255, 97, 97);
+}
+
+.taskButtons {
+  display: flex;
+  gap: 25px;
+  justify-content: center;
+}
+
+.taskButtons button {
+  padding: 10px 20px;
+  border: none;
+  font-family: "Sansation Bold";
+  font-size: 20px;
+  border-radius: 5px;
+  color: white;
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.acceptTaskBtn {
+  background-color: rgb(43, 235, 43);
+}
+
+.cancelTaskBtn {
+  background-color: rgb(230, 39, 39);
+}
+
+.acceptTaskBtn:hover {
+  background-color: rgb(75, 201, 75);
+}
+
+.cancelTaskBtn:hover {
+  background-color: rgb(187, 29, 29);
 }
 
 /* Fonts */

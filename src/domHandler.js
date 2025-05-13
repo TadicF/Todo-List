@@ -2,10 +2,12 @@ import './styles.css'
 import { createUser } from './createUser.js';
 import { addDefaultProject } from './addProjects.js';
 import { addUserProject } from './addProjects.js';
+import { addTask } from './addTask.js';
 
-// Check if Form is already opened
-const isFormOpened = {
+const data = {
   projectForm: false,
+  tempCounter: 0,
+  counter: 0,
 }
 
 // Load Page Header
@@ -85,9 +87,9 @@ function sidebarLoader() {
   addProjectBtn.textContent = 'Add Project'
   todoProjects.appendChild(addProjectBtn);
   addProjectBtn.addEventListener('click', () => {
-      if(!isFormOpened.projectForm) {
+      if(!data.projectForm) {
         displayProjectForm();
-        isFormOpened.projectForm = true;
+        data.projectForm = true;
       }
   }); 
 }
@@ -165,7 +167,7 @@ function displayProjectForm() {
   buttonDiv.appendChild(acceptButton);
   acceptButton.addEventListener('click', (event) => {
     event.preventDefault();
-    isFormOpened.projectForm = false;
+    data.projectForm = false;
 
     const projectName = formInput.value;
     addUserProject(projectName);
@@ -184,7 +186,7 @@ function displayProjectForm() {
     event.preventDefault();
     projectForm.replaceChildren('');
     projectForm.remove();
-    isFormOpened.projectForm = false;
+    data.projectForm = false;
   })
 }
 
@@ -228,8 +230,7 @@ function loadUserProject(projectName) {
   addTaskBtn.textContent = 'Add Task';
   btnContainer.appendChild(addTaskBtn);
   addTaskBtn.addEventListener('click', () => {
-    // function to show modal
-    const taskInfo = loadTaskModal(); // it should return array of info
+    addUserTask(projectName);
   })
 
   const closeBtn = document.createElement('button');
@@ -242,9 +243,59 @@ function loadUserProject(projectName) {
   });
 }
 
-function loadTaskModal() {
+// Rewrite this whole section of code, make a object that can initialize
+// event listeners to buttons
+function addUserTask(projectName) {
+  console.log("hmm");
+  clearInput();
   const taskDialog = document.querySelector('#taskDialog');
   taskDialog.showModal();
+  
+  const acceptTaskBtn = document.querySelector('.acceptTaskBtn');
+  const cancelTaskBtn = document.querySelector('.cancelTaskBtn');
+
+  acceptTaskBtn.addEventListener('click', (event) => { 
+    event.preventDefault();
+    // this will stop calling previous event listeners that are attached
+    // to the element, another way of fixing this is by creating a new
+    // function outside of this scope
+    event.stopImmediatePropagation();
+    taskDialog.close();
+
+    let title = document.querySelector('#task_title').value;
+    let desc = document.querySelector("#task_desc").value;
+    let date = document.querySelector("#due_date").value;
+    let priority;
+    if(document.querySelector('#low_priority').checked) {
+      priority = 'low';
+    }
+    else if(document.querySelector("#medium_priority").checked) {
+      priority = 'medium'
+    }
+    else if(document.querySelector("#high_priority").checked) {
+      priority = 'high';
+    }
+    
+    console.log('added');
+    addTask(title, desc, date, priority, projectName);
+  });
+
+  cancelTaskBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    console.log('closed');
+    taskDialog.close();
+  })
+}
+
+
+function clearInput() {
+  document.querySelector('#task_title').value = '';
+  document.querySelector('#task_desc').value = '';
+  document.querySelector('#due_date').value = '';
+  document.querySelector("#low_priority").value = '';
+  document.querySelector('#medium_priority').value = '';
+  document.querySelector('#high_priority').value = '';
 }
 
 export const pageLoader = {

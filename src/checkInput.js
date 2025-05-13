@@ -1,0 +1,1 @@
+// Create a new function to check if the input is valid
