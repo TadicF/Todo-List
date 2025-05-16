@@ -13,9 +13,8 @@ export function addTask(title, desc, dueDate, priority, projectName) {
   const task = new Todos(title, desc, dueDate, priority);
   
   const project = checkProject(projectName);
-  console.log(project);
-  console.log(userProjects.projects);
   userProjects.projects[project].tasks.push(task);
+  console.log(userProjects.projects);
 }
 
 function checkProject(projectName) {
