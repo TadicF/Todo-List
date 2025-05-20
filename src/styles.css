@@ -343,8 +343,7 @@ input[type="text"]:focus {
 }
 
 .addTaskBtn {
-  background-color: rgb(60, 212, 60);
-  border: none;
+  background-color: rgb(0, 0, 0);
   padding: 10px 20px;
   border-radius: 5px;
   font-family: "Sansation Bold";
@@ -356,7 +355,9 @@ input[type="text"]:focus {
 
 .addTaskBtn:hover {
   scale: 1.1;
-  background-color: rgb(59, 221, 59);
+  background-color: rgb(255, 255, 255);
+  border: 2px solid black;
+  color: black;
 }
 
 .projectTasks {
@@ -533,12 +534,12 @@ input[type="text"]:focus {
   border: 1px solid rgb(78, 78, 78);
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.541);
-  background-color: rgb(232, 252, 255);
+  background-color: rgb(248, 248, 248);
   padding: 30px 50px;
 }
 
 #taskDialog::backdrop {
-  background-color: rgb(187, 187, 187);
+  background-color: rgb(136, 136, 136);
 }
 
 .taskForm {
@@ -570,6 +571,7 @@ textarea {
   font-family: "Sansation Regular";
   font-size: 16px;
   resize: none;
+  padding: 8px 8px;
 }
 
 textarea:focus {

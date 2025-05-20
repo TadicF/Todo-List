@@ -3,6 +3,7 @@ import { createUser } from './createUser.js';
 import { addDefaultProject } from './addProjects.js';
 import { addUserProject } from './addProjects.js';
 import { addTask } from './addTask.js';
+import { loadTasks } from './addTask.js';
 
 const data = {
   projectForm: false,
@@ -246,40 +247,7 @@ function loadUserProject(projectName) {
   projectTasks.classList.add("projectTasks");
   project.appendChild(projectTasks);
 
-  const task = document.createElement('div');
-  task.classList.add('task');
-  task.classList.add("high")
-  projectTasks.appendChild(task);
-
-  const boxContainer = document.createElement('div');
-  boxContainer.classList.add('boxContainer');
-  boxContainer.innerHTML += `<svg class='checkbox' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9,20.42L2.79,14.21L5.62,11.38L9,14.77L18.88,4.88L21.71,7.71L9,20.42Z" /></svg>`;
-  task.appendChild(boxContainer);
-
-  const titleContainer = document.createElement('div');
-  titleContainer.classList.add('titleContainer');
-  const taskTitle = document.createElement('p');
-  taskTitle.classList.add('taskTitle');
-  taskTitle.textContent = 'Task Title';
-  titleContainer.appendChild(taskTitle);
-  task.appendChild(titleContainer);
-
-  const dateContainer = document.createElement('div');
-  dateContainer.classList.add('dateContainer');
-  dateContainer.innerHTML += `<svg class='dateSvg' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z" /></svg>`;
-  const taskDate = document.createElement('p');
-  taskDate.classList.add('taskDate');
-  taskDate.textContent = '11.5.2025';
-  dateContainer.appendChild(taskDate);
-  titleContainer.appendChild(dateContainer);
-
-  const downContainer = document.createElement('div');
-  downContainer.classList.add('downContainer');
-  const downText = document.createElement('p');
-  downText.textContent = 'Description';
-  downContainer.appendChild(downText);
-  downContainer.innerHTML += `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11,4H13V16L18.5,10.5L19.92,11.92L12,19.84L4.08,11.92L5.5,10.5L11,16V4Z" /></svg>`;
-  task.appendChild(downContainer);
+  loadTasks(projectName);  
 }
 
 // Rewrite this whole section of code, make a object that can initialize
@@ -336,7 +304,46 @@ function acceptTask(event, projectName) {
   }
 
   addTask(title, desc, date, priority, projectName);
+  displayTasks(title, date, priority);
   taskDialog.close();
+}
+
+export function displayTasks(title, date, priority) {
+  const projectTasks = document.querySelector(".projectTasks")
+  const task = document.createElement('div');
+  task.classList.add('task');
+  task.classList.add(`${priority}`);
+  projectTasks.appendChild(task);
+   
+  const boxContainer = document.createElement('div');
+  boxContainer.classList.add('boxContainer');
+  boxContainer.innerHTML += `<svg class='checkbox' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9,20.42L2.79,14.21L5.62,11.38L9,14.77L18.88,4.88L21.71,7.71L9,20.42Z" /></svg>`;
+  task.appendChild(boxContainer);
+
+  const titleContainer = document.createElement('div');
+  titleContainer.classList.add('titleContainer');
+  const taskTitle = document.createElement('p');
+  taskTitle.classList.add('taskTitle');
+  taskTitle.textContent = `${title}`;
+  titleContainer.appendChild(taskTitle);
+  task.appendChild(titleContainer);
+
+  const dateContainer = document.createElement('div');
+  dateContainer.classList.add('dateContainer');
+  dateContainer.innerHTML += `<svg class='dateSvg' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z" /></svg>`;
+  const taskDate = document.createElement('p');
+  taskDate.classList.add('taskDate');   
+  taskDate.textContent = `${date}`;
+  dateContainer.appendChild(taskDate);   
+  titleContainer.appendChild(dateContainer);
+
+  const downContainer = document.createElement('div');      
+  downContainer.classList.add('downContainer');      
+  const downText = document.createElement('p');
+  downText.textContent = 'Description';     
+  downContainer.appendChild(downText);
+  downContainer.innerHTML += `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11,4H13V16L18.5,10.5L19.92,11.92L12,19.84L4.08,11.92L5.5,10.5L11,16V4Z" /></svg>`;
+  task.appendChild(downContainer);
 }
 
 function clearInput() {
