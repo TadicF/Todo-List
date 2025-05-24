@@ -308,11 +308,14 @@ function acceptTask(event, projectName) {
   taskDialog.close();
 }
 
-export function displayTasks(title, date, priority) {
+export function displayTasks(title, date, priority, desc) {
   const projectTasks = document.querySelector(".projectTasks")
   const task = document.createElement('div');
+  task.setAttribute('data-name', title);
   task.classList.add('task');
   task.classList.add(`${priority}`);
+  task.classList.add(`${title}`);
+  task.classList.add('taskDescClosed')
   projectTasks.appendChild(task);
    
   const boxContainer = document.createElement('div');
@@ -331,19 +334,67 @@ export function displayTasks(title, date, priority) {
   const dateContainer = document.createElement('div');
   dateContainer.classList.add('dateContainer');
   dateContainer.innerHTML += `<svg class='dateSvg' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z" /></svg>`;
+
   const taskDate = document.createElement('p');
   taskDate.classList.add('taskDate');   
   taskDate.textContent = `${date}`;
   dateContainer.appendChild(taskDate);   
   titleContainer.appendChild(dateContainer);
 
-  const downContainer = document.createElement('div');      
-  downContainer.classList.add('downContainer');      
+  const downContainer = createDownContainer(title, desc);
+  task.appendChild(downContainer);
+}
+
+function createDownContainer(title, desc) {
+  const downContainer = document.createElement('div');
+  downContainer.classList.add('downContainer');     
+  downContainer.setAttribute('data-desc', title); 
   const downText = document.createElement('p');
   downText.textContent = 'Description';     
   downContainer.appendChild(downText);
-  downContainer.innerHTML += `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11,4H13V16L18.5,10.5L19.92,11.92L12,19.84L4.08,11.92L5.5,10.5L11,16V4Z" /></svg>`;
-  task.appendChild(downContainer);
+  downContainer.innerHTML += `<svg class='showDescBtn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11,4H13V16L18.5,10.5L19.92,11.92L12,19.84L4.08,11.92L5.5,10.5L11,16V4Z" /></svg>`;
+  downContainer.addEventListener('click', function() {
+    if(!document.querySelector('.descriptionBox')) {
+      displayDesc(title, desc);
+    }
+  })
+
+  return downContainer;
+}
+
+function displayDesc(title, desc) {
+  console.log(title);
+  const task = document.querySelector(`.${title}`);
+  const descriptionBox = document.createElement('div');
+  descriptionBox.classList.add("descriptionBox");
+  const textContainer = document.createElement('div');
+  textContainer.classList.add('textContainer');
+  descriptionBox.appendChild(textContainer);
+  const descText = document.createElement('p');
+  descText.textContent = `${desc}`;
+  textContainer.appendChild(descText);
+  task.appendChild(descriptionBox);
+  task.classList.add('taskDescOpened');
+  task.classList.remove('taskDescClosed');
+
+  const downContainer = document.querySelector(`[data-desc="${title}"]`);
+  downContainer.remove();
+
+  const upContainer = document.createElement('div');
+  upContainer.classList.add('upContainer');
+  const upText = document.createElement('p');
+  upText.textContent = 'Close';
+  upContainer.appendChild(upText);
+  upContainer.innerHTML += `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13,20H11V8L5.5,13.5L4.08,12.08L12,4.16L19.92,12.08L18.5,13.5L13,8V20Z" /></svg>`;
+  descriptionBox.appendChild(upContainer);
+  upContainer.addEventListener('click', function() {
+    const downContainer = createDownContainer(title, desc);
+    task.appendChild(downContainer);
+    upContainer.remove();
+    descriptionBox.remove();
+    task.classList.remove('taskDescOpened');
+    task.classList.add('taskDescClosed');
+  })
 }
 
 function clearInput() {

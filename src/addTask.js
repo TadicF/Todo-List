@@ -37,7 +37,8 @@ export function loadTasks(projectName) {
           let title = task.title;
           let date = task.dueDate;
           let priority = task.priority;
-          displayTasks(title, date, priority);
+          let desc = task.desc;
+          displayTasks(title, date, priority, desc);
       })
     }
   }
