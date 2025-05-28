@@ -10,18 +10,23 @@ function createUser() {
   let userGender = '';
   const confirmButton = document.querySelector(".confirm_button");
   confirmButton.addEventListener("click", (event) => {
-    event.preventDefault();
-    modalForm.close();
-    userName = document.querySelector("#username_input").value;
-    if(document.querySelector("#male_gender").checked) {
-      userGender = document.querySelector("#male_gender").value;
+    if(!document.querySelector("#username_input").value) {
+      return;
     }
-    else if(document.querySelector("#female_gender").checked) {
-      userGender = document.querySelector("#female_gender").value;
-    };
-    displayUser(userName, userGender);
-    const signUpContainer = document.querySelector('.signUpContainer');
-    signUpContainer.replaceChildren('');
+    else {
+      event.preventDefault();
+      modalForm.close();
+      userName = document.querySelector("#username_input").value;
+      if(document.querySelector("#male_gender").checked) {
+        userGender = document.querySelector("#male_gender").value;
+      }
+      else if(document.querySelector("#female_gender").checked) {
+        userGender = document.querySelector("#female_gender").value;
+      };
+      displayUser(userName, userGender);
+      const signUpContainer = document.querySelector('.signUpContainer');
+      signUpContainer.replaceChildren('');
+    }
   })
 }
 
@@ -31,7 +36,7 @@ function displayUser(userName, userGender) {
   const pfp = document.createElement('img');
   const username = document.createElement('p');
   username.textContent = userName;
-  if(userGender === 'male') {
+  if(userGender === 'male' || userGender === '') {
     pfp.classList.add('malePfp');
     pfp.src = malePfp;
   }

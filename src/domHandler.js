@@ -4,11 +4,11 @@ import { addDefaultProject } from './addProjects.js';
 import { addUserProject } from './addProjects.js';
 import { addTask } from './addTask.js';
 import { loadTasks } from './addTask.js';
+import { checkTaskInput } from './checkInput.js';
 
 const data = {
   projectForm: false,
-  tempCounter: 0,
-  counter: 0,
+  sameTaskNames: 0,
 }
 
 // Load Page Header
@@ -171,6 +171,10 @@ function displayProjectForm() {
     data.projectForm = false;
 
     const projectName = formInput.value;
+    if(projectName === '') {
+      alert(`That field can not be empty!`);
+      return;
+    }
     addUserProject(projectName);
 
     projectForm.replaceChildren('');
@@ -250,8 +254,6 @@ function loadUserProject(projectName) {
   loadTasks(projectName);  
 }
 
-// Rewrite this whole section of code, make a object that can initialize
-// event listeners to buttons
 function taskForm(projectName) {
   clearInput();
   const taskDialog = document.querySelector('#taskDialog');
@@ -269,9 +271,6 @@ function taskForm(projectName) {
 
   acceptTaskBtn.addEventListener('click', function() {
     acceptTask(event, projectName);
-
-    acceptTaskBtn.remove();
-    cancelTaskBtn.remove();
   })
 
   cancelTaskBtn.addEventListener('click', (event) => {
@@ -285,27 +284,34 @@ function taskForm(projectName) {
 }
 
 function acceptTask(event, projectName) {
-  console.log(projectName);
   event.preventDefault();
   const taskDialog = document.querySelector('#taskDialog');
-  
+  const acceptTaskBtn = document.querySelector(".acceptTaskBtn");
+  const cancelTaskBtn = document.querySelector(".cancelTaskBtn");
   let title = document.querySelector('#task_title').value;
   let desc = document.querySelector("#task_desc").value;
   let date = document.querySelector("#due_date").value;
   let priority;
-  if(document.querySelector('#low_priority').checked) {
-    priority = 'low';
-  }
-  else if(document.querySelector("#medium_priority").checked) {
-    priority = 'medium'
-  }
-  else if(document.querySelector("#high_priority").checked) {
-    priority = 'high';
+  if(checkTaskInput(title, projectName)) {
+    if(document.querySelector('#low_priority').checked) {
+      priority = 'low';
+    }
+    else if(document.querySelector("#medium_priority").checked) {
+      priority = 'medium'
+    }
+    else if(document.querySelector("#high_priority").checked) {
+      priority = 'high';
+    }
+    addTask(title, desc, date, priority, projectName);
+    displayTasks(title, date, priority, desc);
+    taskDialog.close();
+    acceptTaskBtn.remove();
+    cancelTaskBtn.remove();
   }
 
-  addTask(title, desc, date, priority, projectName);
-  displayTasks(title, date, priority);
-  taskDialog.close();
+  else {
+    return;
+  }
 }
 
 export function displayTasks(title, date, priority, desc) {
@@ -336,8 +342,13 @@ export function displayTasks(title, date, priority, desc) {
   dateContainer.innerHTML += `<svg class='dateSvg' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z" /></svg>`;
 
   const taskDate = document.createElement('p');
-  taskDate.classList.add('taskDate');   
-  taskDate.textContent = `${date}`;
+  taskDate.classList.add('taskDate');
+  if(date === '') {
+    taskDate.textContent = 'No Date Set';
+  }
+  else {
+    taskDate.textContent = `${date}`;
+  }
   dateContainer.appendChild(taskDate);   
   titleContainer.appendChild(dateContainer);
 
@@ -363,7 +374,6 @@ function createDownContainer(title, desc) {
 }
 
 function displayDesc(title, desc) {
-  console.log(title);
   const task = document.querySelector(`.${title}`);
   const descriptionBox = document.createElement('div');
   descriptionBox.classList.add("descriptionBox");
@@ -371,7 +381,12 @@ function displayDesc(title, desc) {
   textContainer.classList.add('textContainer');
   descriptionBox.appendChild(textContainer);
   const descText = document.createElement('p');
-  descText.textContent = `${desc}`;
+  if(desc === '') {
+    descText.textContent = 'No Desc Set';
+  }
+  else {
+    descText.textContent = `${desc}`;
+  }
   textContainer.appendChild(descText);
   task.appendChild(descriptionBox);
   task.classList.add('taskDescOpened');

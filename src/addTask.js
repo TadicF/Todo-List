@@ -12,7 +12,7 @@ class Todos {
 }
 
 export function addTask(title, desc, dueDate, priority, projectName) {
-  const task = new Todos(title, desc, dueDate, priority, false, false);
+  const task = new Todos(title, desc, dueDate, priority, false);
   
   const project = checkProject(projectName);
   userProjects.projects[project].tasks.push(task);
