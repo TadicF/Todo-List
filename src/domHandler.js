@@ -5,6 +5,7 @@ import { addUserProject } from './addProjects.js';
 import { addTask } from './addTask.js';
 import { loadTasks } from './addTask.js';
 import { checkTaskInput } from './checkInput.js';
+import { changeTaskStatus } from '../finishTask.js';
 
 const data = {
   projectForm: false,
@@ -303,7 +304,7 @@ function acceptTask(event, projectName) {
       priority = 'high';
     }
     addTask(title, desc, date, priority, projectName);
-    displayTasks(title, date, priority, desc);
+    displayTasks(title, date, priority, desc, projectName);
     taskDialog.close();
     acceptTaskBtn.remove();
     cancelTaskBtn.remove();
@@ -314,7 +315,7 @@ function acceptTask(event, projectName) {
   }
 }
 
-export function displayTasks(title, date, priority, desc) {
+export function displayTasks(title, date, priority, desc, projectName) {
   const projectTasks = document.querySelector(".projectTasks")
   const task = document.createElement('div');
   task.setAttribute('data-name', title);
@@ -327,6 +328,9 @@ export function displayTasks(title, date, priority, desc) {
   const boxContainer = document.createElement('div');
   boxContainer.classList.add('boxContainer');
   boxContainer.innerHTML += `<svg class='checkbox' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9,20.42L2.79,14.21L5.62,11.38L9,14.77L18.88,4.88L21.71,7.71L9,20.42Z" /></svg>`;
+  boxContainer.addEventListener('click', function() {
+    changeTaskStatus(title, projectName);
+  })
   task.appendChild(boxContainer);
 
   const titleContainer = document.createElement('div');
