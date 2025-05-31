@@ -1,4 +1,4 @@
-import { userProjects } from "./src/addProjects";
+import { userProjects } from "./addProjects";
 
 export function changeTaskStatus(title, projectName) {
   const taskElement = document.querySelector(`[data-name="${title}"]`);

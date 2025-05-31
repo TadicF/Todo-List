@@ -13,6 +13,7 @@ class DefaultProject {
 export function addDefaultProject(name) {
   const project = new DefaultProject(name);
   defaultProjects.projects.push(project);
+  console.log('added');
 }
 
 addDefaultProject('important');

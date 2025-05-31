@@ -1,11 +1,12 @@
 import './styles.css'
 import { createUser } from './createUser.js';
-import { addDefaultProject } from './addProjects.js';
 import { addUserProject } from './addProjects.js';
 import { addTask } from './addTask.js';
 import { loadTasks } from './addTask.js';
 import { checkTaskInput } from './checkInput.js';
-import { changeTaskStatus } from '../finishTask.js';
+import { changeTaskStatus } from './finishTask.js';
+import { loadDefaultTasks } from './defaultTaskLoader.js';
+import { checkWhiteSpaces } from './checkWhiteSpaces.js';
 
 const data = {
   projectForm: false,
@@ -135,7 +136,11 @@ function loadDefaultProject(pTitle) {
     // ***** Add function to load Default Main page (informations) *********
   })
 
-  addDefaultProject(title);
+  const projectTasks = document.createElement('div');
+  projectTasks.classList.add('projectTasks');
+  project.appendChild(projectTasks);
+
+  loadDefaultTasks(pTitle);
 }
 
 function displayProjectForm() {
@@ -321,7 +326,8 @@ export function displayTasks(title, date, priority, desc, projectName) {
   task.setAttribute('data-name', title);
   task.classList.add('task');
   task.classList.add(`${priority}`);
-  task.classList.add(`${title}`);
+  let titleWithoutSpaces = checkWhiteSpaces(title);
+  task.classList.add(`${titleWithoutSpaces}`);
   task.classList.add('taskDescClosed')
   projectTasks.appendChild(task);
    
@@ -356,29 +362,29 @@ export function displayTasks(title, date, priority, desc, projectName) {
   dateContainer.appendChild(taskDate);   
   titleContainer.appendChild(dateContainer);
 
-  const downContainer = createDownContainer(title, desc);
+  const downContainer = createDownContainer(titleWithoutSpaces, desc);
   task.appendChild(downContainer);
 }
 
-function createDownContainer(title, desc) {
+function createDownContainer(titleWithoutSpaces, desc) {
   const downContainer = document.createElement('div');
   downContainer.classList.add('downContainer');     
-  downContainer.setAttribute('data-desc', title); 
+  downContainer.setAttribute('data-desc', titleWithoutSpaces); 
   const downText = document.createElement('p');
   downText.textContent = 'Description';     
   downContainer.appendChild(downText);
   downContainer.innerHTML += `<svg class='showDescBtn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11,4H13V16L18.5,10.5L19.92,11.92L12,19.84L4.08,11.92L5.5,10.5L11,16V4Z" /></svg>`;
   downContainer.addEventListener('click', function() {
     if(!document.querySelector('.descriptionBox')) {
-      displayDesc(title, desc);
+      displayDesc(titleWithoutSpaces, desc);
     }
   })
 
   return downContainer;
 }
 
-function displayDesc(title, desc) {
-  const task = document.querySelector(`.${title}`);
+function displayDesc(titleWithoutSpaces, desc) {
+  const task = document.querySelector(`.${titleWithoutSpaces}`);
   const descriptionBox = document.createElement('div');
   descriptionBox.classList.add("descriptionBox");
   const textContainer = document.createElement('div');
@@ -396,7 +402,7 @@ function displayDesc(title, desc) {
   task.classList.add('taskDescOpened');
   task.classList.remove('taskDescClosed');
 
-  const downContainer = document.querySelector(`[data-desc="${title}"]`);
+  const downContainer = document.querySelector(`[data-desc="${titleWithoutSpaces}"]`);
   downContainer.remove();
 
   const upContainer = document.createElement('div');
@@ -407,7 +413,7 @@ function displayDesc(title, desc) {
   upContainer.innerHTML += `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13,20H11V8L5.5,13.5L4.08,12.08L12,4.16L19.92,12.08L18.5,13.5L13,8V20Z" /></svg>`;
   descriptionBox.appendChild(upContainer);
   upContainer.addEventListener('click', function() {
-    const downContainer = createDownContainer(title, desc);
+    const downContainer = createDownContainer(titleWithoutSpaces, desc);
     task.appendChild(downContainer);
     upContainer.remove();
     descriptionBox.remove();
