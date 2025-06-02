@@ -375,6 +375,10 @@ input[type="text"]:focus {
   transition: opacity 0.25s ease;
 }
 
+.taskWithoutInteraction {
+  grid-template-columns: 3fr 0.6fr;
+}
+
 .finishedTask {
   opacity: 0.6;
 }

@@ -1,12 +1,13 @@
 import './styles.css'
 import { createUser } from './createUser.js';
-import { addUserProject } from './addProjects.js';
+import { addUserProject, userProjects } from './addProjects.js';
 import { addTask } from './addTask.js';
 import { loadTasks } from './addTask.js';
 import { checkTaskInput } from './checkInput.js';
 import { changeTaskStatus } from './finishTask.js';
 import { loadDefaultTasks } from './defaultTaskLoader.js';
 import { checkWhiteSpaces } from './checkWhiteSpaces.js';
+import { checkIfTaskIsDone } from './checkTaskStatus.js';
 
 const data = {
   projectForm: false,
@@ -137,6 +138,7 @@ function loadDefaultProject(pTitle) {
   })
 
   const projectTasks = document.createElement('div');
+  projectTasks.setAttribute('data-project', pTitle);
   projectTasks.classList.add('projectTasks');
   project.appendChild(projectTasks);
 
@@ -330,6 +332,8 @@ export function displayTasks(title, date, priority, desc, projectName) {
   task.classList.add(`${titleWithoutSpaces}`);
   task.classList.add('taskDescClosed')
   projectTasks.appendChild(task);
+
+  checkIfTaskIsDone(title, projectName)
    
   const boxContainer = document.createElement('div');
   boxContainer.classList.add('boxContainer');
