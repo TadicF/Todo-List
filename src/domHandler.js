@@ -43,6 +43,9 @@ function headerLoader() {
   signUpButton.addEventListener('click', () => createUser());
 
   const optionsSection = document.createElement('div');
+  optionsSection.addEventListener('click', () => {
+    alert('not implemented yet :P');
+  })
   optionsSection.classList.add('optionsSection');
   header.appendChild(optionsSection);
   const myPara1 = document.createElement('p');
@@ -203,7 +206,7 @@ function displayProjectForm() {
   })
 }
 
-function displayUserProject(projectName) {
+export function displayUserProject(projectName) {
   const todoProjects = document.querySelector('.todoProjects');
   const addProjectBtn = document.querySelector('.addProject');
   const project = document.createElement('nav');
@@ -219,7 +222,7 @@ function displayUserProject(projectName) {
   })
 }
 
-function loadUserProject(projectName) {
+export function loadUserProject(projectName) {
   const main = document.querySelector("#main");
   main.replaceChildren('');
   const project = document.createElement('div');

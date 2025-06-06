@@ -1,3 +1,5 @@
+import { saveProjects } from "./localStorage";
+
 // Default Project Constructor
 export const defaultProjects = {
   projects: [],
@@ -13,7 +15,6 @@ class DefaultProject {
 export function addDefaultProject(name) {
   const project = new DefaultProject(name);
   defaultProjects.projects.push(project);
-  console.log('added');
 }
 
 addDefaultProject('important');
@@ -36,5 +37,6 @@ class UserProject {
 export function addUserProject(name) {
   const project = new UserProject(name);
   userProjects.projects.push(project);
+  saveProjects(name);
 }
 

@@ -1,4 +1,5 @@
 import { userProjects } from "./addProjects";
+import { saveProjects } from "./localStorage";
 
 export function changeTaskStatus(title, projectName) {
   const taskElement = document.querySelector(`[data-name="${title}"]`);
@@ -9,9 +10,11 @@ export function changeTaskStatus(title, projectName) {
           if(task.isDone === false) {
             task.isDone = true;
             taskElement.classList.add('finishedTask');
+            saveProjects(projectName);
           } else {
             task.isDone = false;
             taskElement.classList.remove('finishedTask');
+            saveProjects(projectName);
           }
         }
       })
