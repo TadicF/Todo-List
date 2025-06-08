@@ -1,4 +1,4 @@
-import { defaultProjects, userProjects } from "./addProjects";
+import { userProjects } from "./addProjects";
 import { displayTasks } from "./domHandler";
 import { saveProjects } from "./localStorage";
 

@@ -12,7 +12,7 @@ export function saveProjects(projectName) {
   })
 }
 
-// Next: make a function to retrievce data from local storage
+// Function that loads projects from the local storage
 export function loadProjects() {
   Object.keys(localStorage).forEach(key => {
     const retrievedObject = localStorage.getItem(key);
@@ -20,8 +20,7 @@ export function loadProjects() {
     addUserProject(parsedObject.name);
     parsedObject.tasks.forEach(task => {
       addTask(task.title, task.desc, task.dueDate, task.priority, parsedObject.name);
-    })
-
+    });
     displayUserProject(parsedObject.name);
   }) 
 };
