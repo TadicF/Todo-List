@@ -314,6 +314,12 @@ input[type="text"]:focus {
   justify-content: space-between;
 }
 
+.errorMsg {
+  font-family: 'Sansation Regular';
+  color: rgb(218, 18, 18);
+  font-size: 0.9em;
+}
+
 .projectTitle p {
   font-family: "Sansation Bold";
   font-size: 38px;

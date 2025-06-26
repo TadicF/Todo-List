@@ -1,6 +1,6 @@
 import './styles.css'
 import { createUser } from './createUser.js';
-import { addUserProject, userProjects } from './addProjects.js';
+import { addUserProject } from './addProjects.js';
 import { addTask } from './addTask.js';
 import { loadTasks } from './addTask.js';
 import { checkTaskInput } from './checkInput.js';
@@ -8,8 +8,9 @@ import { changeTaskStatus } from './finishTask.js';
 import { loadDefaultTasks } from './defaultTaskLoader.js';
 import { checkWhiteSpaces } from './checkWhiteSpaces.js';
 import { checkIfTaskIsDone } from './checkTaskStatus.js';
+import { projectFormValidation } from './formValidation.js';
 
-const data = {
+export const data = {
   projectForm: false,
   sameTaskNames: 0,
 }
@@ -153,6 +154,7 @@ function displayProjectForm() {
   const projectForm = document.createElement('form');
   projectForm.classList.add('projectForm');
   todoProjects.appendChild(projectForm);
+  projectForm.setAttribute('novalidate', '');
 
   const formDiv = document.createElement('div');
   formDiv.classList.add("formDiv");
@@ -167,7 +169,14 @@ function displayProjectForm() {
   formInput.setAttribute('type', 'text');
   formInput.setAttribute('name', 'projectName');
   formInput.setAttribute('id', 'projectName');
+  formInput.setAttribute('autocomplete', 'off');
+  formInput.setAttribute('maxlength', '20');
+  formInput.setAttribute('required', '');
   formDiv.appendChild(formInput);
+
+  const errorMsg = document.createElement('span');
+  errorMsg.classList.add('errorMsg');
+  formDiv.appendChild(errorMsg);
 
   const buttonDiv = document.createElement('div');
   buttonDiv.classList.add('formButtons');
@@ -177,22 +186,8 @@ function displayProjectForm() {
   acceptButton.classList.add('acceptProjectBtn');
   acceptButton.textContent = 'Accept';
   buttonDiv.appendChild(acceptButton);
-  acceptButton.addEventListener('click', (event) => {
-    event.preventDefault();
-    data.projectForm = false;
 
-    const projectName = formInput.value;
-    if(projectName === '') {
-      alert(`That field can not be empty!`);
-      return;
-    }
-    addUserProject(projectName);
-
-    projectForm.replaceChildren('');
-    projectForm.remove();
-
-    displayUserProject(projectName);
-  })
+  projectFormValidation();
 
   const cancelButton = document.createElement('button');
   cancelButton.classList.add('cancelProjectBtn');

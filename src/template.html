@@ -44,12 +44,12 @@
     <dialog id="taskDialog">
       <form class="taskForm">
         <div class="title_form">
-          <label for="taskTitle">Task Title</label>
-          <input type="text" name="task_title" id="task_title" required>
+          <label for="taskTitle">Task Title *</label>
+          <input type="text" name="task_title" id="task_title" required maxlength="30" autocomplete="off">
         </div>
         <div class="desc_form">
           <label for="task_desc">Description</label>
-          <textarea name="task_desc" id="task_desc" cols="30" rows="5" placeholder="Your Task Description"></textarea>
+          <textarea name="task_desc" id="task_desc" cols="30" rows="5" placeholder="Your Task Description" maxlength="150"></textarea>
         </div>
         <div class="date_form">
           <label for="due_date">Due Date</label>
